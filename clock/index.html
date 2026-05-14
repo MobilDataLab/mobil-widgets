@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reloj · Mobil Central</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .widget { text-align: center; padding: 1.5rem 2rem; width: 100%; }
+    .time {
+      font-size: clamp(3rem, 10vw, 5.5rem);
+      font-weight: 200;
+      letter-spacing: -3px;
+      color: #111;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+    .colon {
+      animation: blink 1s ease-in-out infinite;
+      display: inline-block;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+    .divider { width: 1.8rem; height: 1px; background: #ddd; margin: 1rem auto; }
+    .date {
+      font-size: 0.73rem;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #444;
+      margin-bottom: 0.35rem;
+    }
+    .meta { font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; color: #bbb; }
+    .week-badge {
+      display: inline-block;
+      margin-top: 0.7rem;
+      padding: 0.18rem 0.65rem;
+      border: 1px solid #ebebeb;
+      border-radius: 2rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <div class="time">
+      <span id="h">--</span><span class="colon">:</span><span id="m">--</span><span class="colon">:</span><span id="s">--</span>
+    </div>
+    <div class="divider"></div>
+    <div class="date" id="date">Cargando...</div>
+    <div class="meta">Santiago &middot; Chile</div>
+    <div class="week-badge" id="week">Semana --</div>
+  </div>
+  <script>
+    const DIAS  = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+    const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    function getSemana(d) {
+      const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+      t.setUTCDate(t.getUTCDate() + 4 - (t.getUTCDay() || 7));
+      const y = new Date(Date.UTC(t.getUTCFullYear(), 0, 1));
+      return Math.ceil((((t - y) / 86400000) + 1) / 7);
+    }
+    function tick() {
+      const stg = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Santiago' }));
+      document.getElementById('h').textContent = String(stg.getHours()).padStart(2,'0');
+      document.getElementById('m').textContent = String(stg.getMinutes()).padStart(2,'0');
+      document.getElementById('s').textContent = String(stg.getSeconds()).padStart(2,'0');
+      document.getElementById('date').textContent = `${DIAS[stg.getDay()]} ${stg.getDate()} · ${MESES[stg.getMonth()]} ${stg.getFullYear()}`;
+      document.getElementById('week').textContent = `Semana ${getSemana(stg)}`;
+    }
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>

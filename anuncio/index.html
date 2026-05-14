@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anuncio · Mobil Central</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --accent: #2563eb; --bg-badge: #eff6ff; --badge-text: #1e40af; }
+    [data-tipo="urgente"]  { --accent: #dc2626; --bg-badge: #fef2f2; --badge-text: #991b1b; }
+    [data-tipo="alerta"]   { --accent: #d97706; --bg-badge: #fffbeb; --badge-text: #92400e; }
+    [data-tipo="evento"]   { --accent: #059669; --bg-badge: #ecfdf5; --badge-text: #065f46; }
+    [data-tipo="logro"]    { --accent: #7c3aed; --bg-badge: #f5f3ff; --badge-text: #4c1d95; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .card {
+      width: 100%;
+      max-width: 540px;
+      border-left: 3px solid var(--accent);
+      padding: 1.2rem 1.5rem;
+      background: #fafafa;
+      border-radius: 0 8px 8px 0;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+    }
+    .header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 2rem;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--bg-badge);
+      color: var(--badge-text);
+    }
+    .fecha { font-size: 0.62rem; letter-spacing: 0.12em; color: #aaa; text-transform: uppercase; margin-left: auto; }
+    .titulo { font-size: 1rem; font-weight: 600; color: #111; margin-bottom: 0.5rem; line-height: 1.3; }
+    .texto { font-size: 0.82rem; font-weight: 300; color: #555; line-height: 1.65; }
+    .footer { margin-top: 1rem; padding-top: 0.7rem; border-top: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; }
+    .autor { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: #bbb; }
+    .brand { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: #ddd; }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="header">
+      <span class="badge" id="badge">🔵 Info</span>
+      <span class="fecha" id="fecha"></span>
+    </div>
+    <div class="titulo" id="titulo">Sin anuncio activo</div>
+    <div class="texto" id="texto">Actualiza la URL con: ?tipo=info&titulo=Texto&texto=Detalle&fecha=14-MAY-26&autor=Nombre</div>
+    <div class="footer">
+      <span class="autor" id="autor">Mobil Arquitectos</span>
+      <span class="brand">Mobil Central</span>
+    </div>
+  </div>
+  <script>
+    const p = new URLSearchParams(window.location.search);
+    const tipo  = (p.get('tipo')  || 'info').toLowerCase();
+    const icons = { urgente:'🔴', alerta:'⚠️', evento:'📅', logro:'🏆', info:'🔵' };
+    const labels= { urgente:'Urgente', alerta:'Alerta', evento:'Evento', logro:'Logro', info:'Info' };
+    document.getElementById('card').setAttribute('data-tipo', tipo);
+    document.getElementById('badge').textContent  = `${icons[tipo]||'🔵'} ${labels[tipo]||'Info'}`;
+    document.getElementById('titulo').textContent = decodeURIComponent(p.get('titulo') || 'Sin anuncio activo');
+    document.getElementById('texto').textContent  = decodeURIComponent(p.get('texto')  || '');
+    document.getElementById('fecha').textContent  = decodeURIComponent(p.get('fecha')  || '');
+    document.getElementById('autor').textContent  = decodeURIComponent(p.get('autor')  || 'Mobil Arquitectos');
+  </script>
+</body>
+</html>

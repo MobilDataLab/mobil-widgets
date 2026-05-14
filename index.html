@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><title>Mobil Widgets</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:#fafafa;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem}
+    h1{font-size:1rem;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:#222;margin-bottom:.25rem}
+    .sub{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:#aaa;margin-bottom:2.5rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;width:100%;max-width:700px}
+    .card{background:#fff;border:1px solid #eee;border-radius:8px;padding:1.4rem}
+    .card h2{font-size:.7rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:#333;margin-bottom:.3rem}
+    .card p{font-size:.65rem;color:#999;margin-bottom:.9rem;line-height:1.6}
+    .card a{font-size:.65rem;letter-spacing:.08em;color:#2563eb;text-decoration:none}
+  </style>
+</head>
+<body>
+  <h1>Mobil Widgets</h1>
+  <p class="sub">Embeds para MOBIL CENTRAL · Notion</p>
+  <div class="grid">
+    <div class="card"><h2>⏰ Reloj Santiago</h2><p>Hora local en Santiago, Chile. Se actualiza cada segundo.</p><a href="/clock">→ /clock</a></div>
+    <div class="card"><h2>🌤️ Clima Santiago</h2><p>Temperatura y condición actual vía wttr.in. Cada 10 min.</p><a href="/weather">→ /weather</a></div>
+    <div class="card"><h2>📢 Panel Anuncio</h2><p>Widget parametrizable por URL. Tipos: info, urgente, alerta, evento, logro.</p><a href="/anuncio?tipo=info&titulo=Ejemplo&texto=Texto+del+anuncio&fecha=14-MAY-26">→ /anuncio</a></div>
+  </div>
+</body>
+</html>
